@@ -104,8 +104,8 @@ public class Platform {
     }
     public String getPlatformVar()
     {
-        return PLATFORM_ANDROID;
-        //return System.getenv("PLATFORM");
+        //return PLATFORM_ANDROID;
+        return System.getenv("PLATFORM");
 
     }
 }

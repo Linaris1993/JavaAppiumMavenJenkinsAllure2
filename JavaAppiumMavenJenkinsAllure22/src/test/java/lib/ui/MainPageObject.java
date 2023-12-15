@@ -9,6 +9,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,6 +29,7 @@ public class MainPageObject {
     public MainPageObject(RemoteWebDriver driver) {
         this.driver = driver;
     }
+
 
     public WebElement waitForElementPresent(String locator, String error_message, long timeoutInSeconds) {
         By by = this.getLocatorByString(locator);
@@ -190,7 +192,7 @@ public class MainPageObject {
             int point_to_click_y = middle_y;
 
             TouchAction action = new TouchAction((AppiumDriver) driver);
-            action.tap(point_to_click_x, point_to_click_y).perform();
+           // action.tap(point_to_click_x, point_to_click_y).perform();
         } else {
             System.out.println("Method clickElementToTheRightUpperCorner() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
