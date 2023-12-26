@@ -1,6 +1,7 @@
 package lib.ui.ios;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSArticlePageObject extends ArticlePageObject {
     static {
@@ -10,7 +11,7 @@ public class iOSArticlePageObject extends ArticlePageObject {
         CLOSE_ARTICLE_BTN = "id:Navigate up";
     }
 
-    public iOSArticlePageObject (AppiumDriver driver)
+    public iOSArticlePageObject (RemoteWebDriver driver)
     {
         super(driver);
     }

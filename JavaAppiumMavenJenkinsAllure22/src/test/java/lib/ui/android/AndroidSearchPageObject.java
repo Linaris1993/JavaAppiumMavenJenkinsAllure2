@@ -2,6 +2,7 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.SearchPageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidSearchPageObject extends SearchPageObject {
     static {
@@ -15,7 +16,7 @@ public class AndroidSearchPageObject extends SearchPageObject {
         SEARCH_RESULT_LIST="xpath://lib.ui.android.widget.TextView[@resource-id='org.wikipedia:id/page_list_item_title']";
         SEARCH_INPUT_PLACEHOLDER="//*[@resource-id='org.wikipedia:id/search_container']//*[@class='android.widget.TextView']";
         }
-    public AndroidSearchPageObject (AppiumDriver driver)
+    public AndroidSearchPageObject (RemoteWebDriver driver)
     {
         super(driver);
     }

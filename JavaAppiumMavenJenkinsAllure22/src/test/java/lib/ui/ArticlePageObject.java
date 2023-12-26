@@ -3,6 +3,7 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class ArticlePageObject extends MainPageObject {
     protected static String
@@ -16,7 +17,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     SAVE_BTN,
     ARTICLE_TITLE_TPL;
 
-    public ArticlePageObject (AppiumDriver driver)
+    public ArticlePageObject (RemoteWebDriver driver)
     {
         super(driver);
     }
@@ -38,8 +39,10 @@ abstract public class ArticlePageObject extends MainPageObject {
         WebElement title_element = waitForTitleElement();
         if (Platform.getInstance().isAndroid()) {
             return title_element.getAttribute("contentDescription");
-        } else {
+        } else if (Platform.getInstance().isIOS()){
          return    title_element.getAttribute("name");
+        } else {
+            return title_element.getText();
         }
     }
     public void swipeToFooter()
@@ -50,11 +53,17 @@ abstract public class ArticlePageObject extends MainPageObject {
                     "Cannot find the end of the article",
                     40
             );
-        } else {
+        } else if (Platform.getInstance().isIOS()) {
             this.swipeUpTillElementAppear(
                     FOOTER_ELEMENT,
                     "Cannot find the end of the article",
             40
+            );
+        } else {
+            this.scrollWebPageTillElementNotVisible(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40
             );
         }
     }

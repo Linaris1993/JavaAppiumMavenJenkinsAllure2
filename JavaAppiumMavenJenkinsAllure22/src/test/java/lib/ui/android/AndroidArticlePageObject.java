@@ -2,6 +2,7 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidArticlePageObject extends ArticlePageObject {
     static {
@@ -15,7 +16,7 @@ public class AndroidArticlePageObject extends ArticlePageObject {
         SAVE_BTN = "id:org.wikipedia:id/page_save";
         ARTICLE_TITLE_TPL = "xpath://android.view.View[@content-desc='{TITLE}']";
     }
-    public AndroidArticlePageObject(AppiumDriver driver)
+    public AndroidArticlePageObject(RemoteWebDriver driver)
     {
         super(driver);
     }
