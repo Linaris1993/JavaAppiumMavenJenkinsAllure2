@@ -2,10 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
@@ -14,13 +11,16 @@ import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase {
     private  static final String name_of_folder = "Learning Programming";
+    private static final String
+    login = "TestMWAuth",
+    password = "testov2024";
     @Test
     public void testSaveFirstArticleToMyList() {
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
@@ -31,9 +31,25 @@ public class MyListsTests extends CoreTestCase {
         } else {
             ArticlePageObject.addArticleToMySaved();
         }
-            ArticlePageObject.closeArticle();
+        if (Platform.getInstance().isMW()) {
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthBtn();
+            Auth.enterLoginData(login, password);
+            Auth.setSubmitForm();
+
+            ArticlePageObject.waitForTitleElement();
+
+            assertEquals("we are not on the same page after login.",
+                    article_title,
+                    ArticlePageObject.getArticleTitle()
+            );
+
+            ArticlePageObject.addArticleToMySaved();
+        }
+        ArticlePageObject.closeArticle();
 
             NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+            NavigationUI.setOpenNavigation();
             NavigationUI.clickMyLists();
             ArticlePageObject.swipeUpFunction();
 

@@ -15,7 +15,8 @@ abstract public class ArticlePageObject extends MainPageObject {
     CLOSE_ARTICLE_BTN,
     SEARCH_ARTICLE_BY_TEXT_TPL,
     SAVE_BTN,
-    ARTICLE_TITLE_TPL;
+    ARTICLE_TITLE_TPL,
+    OPTIONS_REMOVE_FROM_MY_LIST_BTN;
 
     public ArticlePageObject (RemoteWebDriver driver)
     {
@@ -100,20 +101,43 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     public void closeArticle()
     {
-        this.waitForElementAndClick(
-                CLOSE_ARTICLE_BTN,
-                "Cannot go back from Article, cannot find 'Go Back' Arrow",
-                5
-        );
-
-        this.waitForElementAndClick(
-                CLOSE_ARTICLE_BTN,
-                "Cannot go back from Article, cannot find 'Go Back' Arrow",
-                5
-        );
+        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
+            this.waitForElementAndClick(
+                    CLOSE_ARTICLE_BTN,
+                    "Cannot go back from Article, cannot find 'Go Back' Arrow",
+                    5
+            );
+            this.waitForElementAndClick(
+                    CLOSE_ARTICLE_BTN,
+                    "Cannot go back from Article, cannot find 'Go Back' Arrow",
+                    5
+            );
+        } else {
+            System.out.println("Method closeArticle() do nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
     }
     public void addArticleToMySaved() {
-        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST, "Cannot find option to add article to reading list", 5);
+        if (Platform.getInstance().isMW()) {
+            this.removeArticleFromSavedIfItsAdded();
+        } else {
+            this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST, "Cannot find option to add article to reading list", 5);
+        }
+    }
+
+    public void removeArticleFromSavedIfItsAdded()
+    {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BTN)) {
+            this.waitForElementAndClick(
+                  OPTIONS_REMOVE_FROM_MY_LIST_BTN,
+                  "Cannot click btn to remove an article from saved",
+                  5
+            );
+            this.waitForElementPresent(
+                    OPTIONS_ADD_TO_MY_LIST,
+                    "cannot find btn to add an article to saved list after removing it from this list before",
+                    5
+            );
+        }
     }
 
     public void saveArticle()
