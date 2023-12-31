@@ -1,4 +1,4 @@
-package mobileWeb;
+package lib.ui.mobileWeb;
 
 import lib.ui.ArticlePageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;

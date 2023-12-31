@@ -106,6 +106,5 @@ public class Platform {
     {
         //return PLATFORM_ANDROID;
         return System.getenv("PLATFORM");
-
     }
 }
