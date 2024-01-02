@@ -7,6 +7,7 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase {
@@ -39,7 +40,7 @@ public class MyListsTests extends CoreTestCase {
 
             ArticlePageObject.waitForTitleElement();
 
-            assertEquals("we are not on the same page after login.",
+            Assert.assertEquals("we are not on the same page after login.",
                     article_title,
                     ArticlePageObject.getArticleTitle()
             );
@@ -95,7 +96,7 @@ public class MyListsTests extends CoreTestCase {
         ArticlePageObject.waitForTitleElement();
         String notDeletedArticleTitle = ArticlePageObject.getArticleTitle();
 
-        assertEquals(
+        Assert.assertEquals(
                 "Article is different, you probably removed wrong article",
                 article_TWO_title,
                 notDeletedArticleTitle
