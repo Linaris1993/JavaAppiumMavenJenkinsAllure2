@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -27,14 +28,19 @@ abstract public class ArticlePageObject extends MainPageObject {
         return SEARCH_ARTICLE_BY_TEXT_TPL.replace("{TEXT}", text);
     }
 
+    @Step("Waiting for title on the article page")
     private static String getArticleTitle(String title)
     {
         return ARTICLE_TITLE_TPL.replace("{TITLE}", title);
     }
+
+    @Step("Waiting for title element to present")
     public WebElement waitForTitleElement()
     {
         return this.waitForElementPresent(TITLE, "Cannot find article title on the page", 15);
     }
+
+    @Step("Getting title article")
     public String getArticleTitle()
     {
         WebElement title_element = waitForTitleElement();
@@ -46,6 +52,8 @@ abstract public class ArticlePageObject extends MainPageObject {
             return title_element.getText();
         }
     }
+
+    @Step("Swiping to footer on article page")
     public void swipeToFooter()
     {
         if (Platform.getInstance().isAndroid()) {
@@ -69,11 +77,13 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
+    @Step("Swiping up")
     public void swipeUpFunction()
     {
      this.swipeUp();
     }
 
+    @Step("Adding article to the list")
     public void addArticleToMyList(String name_of_folder)
     {
         this.waitForElementAndClick(
@@ -99,6 +109,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
 
+    @Step("Closing article")
     public void closeArticle()
     {
         if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
@@ -116,6 +127,8 @@ abstract public class ArticlePageObject extends MainPageObject {
             System.out.println("Method closeArticle() do nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
+
+    @Step("Adding article to saved list")
     public void addArticleToMySaved() {
         if (Platform.getInstance().isMW()) {
             this.removeArticleFromSavedIfItsAdded();
@@ -124,6 +137,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
+    @Step("Removing article from saved list")
     public void removeArticleFromSavedIfItsAdded()
     {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BTN)) {
@@ -140,6 +154,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
+    @Step("Saving article title")
     public void saveArticle()
     {
         this.waitForElementAndClick(
@@ -148,11 +163,14 @@ abstract public class ArticlePageObject extends MainPageObject {
                 10
         );
     }
+
+    @Step("Verifying saved articles")
     public void verifySavedArticles(String text) {
         String search_result_text = getArticleSearchByText(text);
         this.waitForElementPresent(search_result_text, "Cannot find saved article by text " + text, 5);
     }
 
+    @Step("Verifying article title is present")
     public void verifyTitleIsPresent(String title)
     {
         String article_title = getArticleTitle(title);

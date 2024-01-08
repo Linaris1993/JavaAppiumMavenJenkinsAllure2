@@ -1,5 +1,8 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.ArticlePageObject;
 import lib.ui.NavigationUI;
@@ -12,6 +15,10 @@ import org.junit.Test;
 
 public class ArticleTests extends CoreTestCase {
     @Test
+    @DisplayName("compare article title with expected one")
+    @Description("open 'Java OOP Language' article and validate the title")
+    @Step("Starting test compareArticleTitle")
+
     public void testCompareArticleTitle() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -31,6 +38,10 @@ public class ArticleTests extends CoreTestCase {
     }
 
     @Test
+    @DisplayName("swipe element to the footer")
+    @Description("open an article and swipe it to the footer")
+    @Step("Starting test testSwipeArticle")
+
     public void testSwipeArticle() {
         SearchPageObject SearchPageObject =SearchPageObjectFactory.get(driver);
         SearchPageObject.initSearchInput();
